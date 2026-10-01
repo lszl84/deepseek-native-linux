@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=DeepSeek
+GenericName=AI Coding Agent
+Comment=Native GTK client for the DeepSeek Harness coding agent
+Exec=deepseek-native %U
+Icon=io.github.lszl84.DeepSeekNative
+Terminal=false
+Categories=Development;IDE;GTK;
+Keywords=deepseek;ai;agent;coding;harness;llm;
+StartupNotify=true
+StartupWMClass=io.github.lszl84.DeepSeekNative
