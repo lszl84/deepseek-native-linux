@@ -1,0 +1,35 @@
+# Maintainer: Lukasz Sromek <https://github.com/lszl84>
+
+# Builds from this checkout: cd packaging/arch && makepkg -si
+# (It lives in a subdirectory because makepkg uses ./src as its own work directory.)
+
+pkgname=deepseek-native
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Fast native GTK3 client for the DeepSeek Harness coding agent"
+arch=(x86_64 aarch64)
+url="https://github.com/lszl84/deepseek-native-linux"
+license=(MIT)
+options=(!debug)
+depends=(gtk3 curl json-glib libsecret glib2 pango cairo gdk-pixbuf2)
+optdepends=('ripgrep: fast glob/grep tools and @ file completion'
+            'zstd: import sessions from the Node DeepSeek Harness')
+
+build() {
+  cd "$startdir/../.."
+  make clean
+  make BUILD=release
+}
+
+check() {
+  cd "$startdir/../.."
+  ./build/deepseek-native --version
+}
+
+package() {
+  cd "$startdir/../.."
+  make install DESTDIR="$pkgdir" PREFIX=/usr
+  install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
+  install -Dm644 THIRD_PARTY_NOTICES.md "$pkgdir/usr/share/doc/$pkgname/THIRD_PARTY_NOTICES.md"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

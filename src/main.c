@@ -6,6 +6,11 @@
 #include <string.h>
 #include <locale.h>
 #include <stdio.h>
+#include <gtk/gtk.h>
+
+#ifndef DSN_VERSION
+#define DSN_VERSION "dev"
+#endif
 
 int main(int argc, char **argv) {
     setlocale(LC_ALL, "");
@@ -26,7 +31,7 @@ int main(int argc, char **argv) {
             return r;
         }
         if (!strcmp(argv[i], "--version")) {
-            printf("deepseek-native 1.0.0 (GTK %d.%d.%d)\n", 3, 24, 0);
+            printf("deepseek-native %s (GTK %u.%u.%u)\n", DSN_VERSION, gtk_get_major_version(), gtk_get_minor_version(), gtk_get_micro_version());
             return 0;
         }
     }

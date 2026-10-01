@@ -1,4 +1,5 @@
 # DeepSeek Native for Linux — C + GTK3
+VERSION  := 0.1.0
 PKGS     := gtk+-3.0 libcurl json-glib-1.0 libsecret-1
 CC       ?= cc
 BUILD    ?= release
@@ -20,7 +21,7 @@ ifeq ($(TEST_HOOKS),1)
 endif
 
 CFLAGS   += -std=gnu11 -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers \
-            -Wno-sign-compare $(OPT) $(shell pkg-config --cflags $(PKGS)) -Isrc
+            -Wno-sign-compare -DDSN_VERSION='"$(VERSION)"' $(OPT) $(shell pkg-config --cflags $(PKGS)) -Isrc
 LDLIBS   += $(shell pkg-config --libs $(PKGS)) -lm -lpthread
 LDFLAGS  += $(LDOPT)
 

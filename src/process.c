@@ -12,6 +12,20 @@
 #include <sys/stat.h>
 #include <linux/types.h>
 
+/* Older glibc headers (e.g. Ubuntu 22.04) may lack these; the numbers are the same on all architectures. */
+#ifndef SYS_landlock_create_ruleset
+#define SYS_landlock_create_ruleset 444
+#endif
+#ifndef SYS_landlock_add_rule
+#define SYS_landlock_add_rule 445
+#endif
+#ifndef SYS_landlock_restrict_self
+#define SYS_landlock_restrict_self 446
+#endif
+#ifndef SYS_close_range
+#define SYS_close_range 436
+#endif
+
 #define HEAD_LIMIT (64 * 1024)
 #define TAIL_LIMIT (256 * 1024)
 

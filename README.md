@@ -41,6 +41,24 @@ On Debian and Ubuntu:
 sudo apt install build-essential libgtk-3-dev libcurl4-openssl-dev libjson-glib-dev libsecret-1-dev ripgrep
 ```
 
+## Install
+
+Download a package from the [latest release](https://github.com/lszl84/deepseek-native-linux/releases/latest).
+
+On Arch Linux and Omarchy:
+
+```sh
+sudo pacman -U deepseek-native-*-x86_64.pkg.tar.zst
+```
+
+On Debian 12 or later, or Ubuntu 22.04 or later (x86_64):
+
+```sh
+sudo apt install ./deepseek-native_*_amd64.deb
+```
+
+Then start **DeepSeek** from your app launcher, or run `deepseek-native`.
+
 ## Build and run
 
 ```sh
@@ -49,6 +67,8 @@ make                  # release build → build/deepseek-native
 make install          # into ~/.local (binary, .desktop file, icons); PREFIX=/usr/local works too
 make test             # sandbox self-test: no network or API key needed
 ```
+
+To build the packages yourself, run `cd packaging/arch && makepkg -si` on Arch, or `packaging/deb/build-deb.sh` on Debian and Ubuntu. Pushing a `v*` tag builds both in GitHub Actions and attaches them to the release; the tag must match `VERSION` in the Makefile and `pkgver` in the PKGBUILD.
 
 `make BUILD=debug` builds with AddressSanitizer and UBSan.
 

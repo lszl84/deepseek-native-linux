@@ -617,7 +617,7 @@ static void startup(GApplication *app, gpointer p) {
 int app_run(int argc, char **argv) {
     g_set_application_name("DeepSeek");
     g_set_prgname("deepseek-native");
-    GApplicationFlags flags = G_APPLICATION_DEFAULT_FLAGS;
+    GApplicationFlags flags = 0; /* G_APPLICATION_DEFAULT_FLAGS needs GLib 2.74 */
     if (g_getenv("DSN_DATA_DIR")) flags |= G_APPLICATION_NON_UNIQUE;
     A.app = gtk_application_new("io.github.lszl84.DeepSeekNative", flags);
     g_signal_connect(A.app, "startup", G_CALLBACK(startup), NULL);
