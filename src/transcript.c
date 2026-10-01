@@ -924,6 +924,7 @@ void ds_transcript_scroll_to(DsTranscript *t, double y) {
 
 double ds_transcript_content_height(DsTranscript *t) { return t->content_h; }
 
+#ifdef DSN_TEST_HOOKS
 gboolean ds_transcript_find_hit(DsTranscript *t, const char *needle, double *wx, double *wy) {
     double off = offset(t), h = gtk_widget_get_allocated_height(GTK_WIDGET(t));
     double x0 = col_x(t), cw = col_width(t);
@@ -945,7 +946,9 @@ gboolean ds_transcript_find_hit(DsTranscript *t, const char *needle, double *wx,
     }
     return FALSE;
 }
+#endif
 
+#ifdef DSN_TEST_HOOKS
 /* Renders the whole document (not just the visible part) into PNG pages of at most 1000px;
  * used for automated review. */
 gboolean ds_transcript_render_document(DsTranscript *t, const char *path) {
@@ -976,3 +979,4 @@ gboolean ds_transcript_render_document(DsTranscript *t, const char *path) {
     }
     return TRUE;
 }
+#endif

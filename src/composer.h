@@ -34,4 +34,6 @@ typedef struct { const char *name; const char *detail; } SlashCommand;
 extern const SlashCommand SLASH_COMMANDS[];
 extern const int N_SLASH;
 
+#ifdef DSN_TEST_HOOKS
 void composer_debug_popovers(Composer *c, GtkWidget **out, int *n);
+#endif

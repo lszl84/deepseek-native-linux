@@ -941,9 +941,11 @@ void composer_forward_key(Composer *c, GdkEventKey *ev) {
     }
 }
 
+#ifdef DSN_TEST_HOOKS
 void composer_debug_popovers(Composer *c, GtkWidget **out, int *n) {
     *n = 0;
     GtkWidget *all[] = { c->perm_popover, c->model_popover, c->comp_popover };
     for (int i = 0; i < 3; i++)
         if (all[i] && gtk_widget_get_visible(all[i])) out[(*n)++] = all[i];
 }
+#endif

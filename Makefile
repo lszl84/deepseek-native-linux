@@ -7,9 +7,16 @@ PREFIX   ?= $(HOME)/.local
 ifeq ($(BUILD),debug)
   OPT := -O0 -g3 -fsanitize=address,undefined
   LDOPT := -fsanitize=address,undefined
+  TEST_HOOKS ?= 1
 else
   OPT := -O2 -g
   LDOPT :=
+  TEST_HOOKS ?= 0
+endif
+# Automated UI test hooks (DSN_SCRIPT, DSN_SNAPSHOT, ...): on in debug builds, off in release.
+# A release-speed build with hooks: make BUILD=hooks TEST_HOOKS=1
+ifeq ($(TEST_HOOKS),1)
+  OPT += -DDSN_TEST_HOOKS
 endif
 
 CFLAGS   += -std=gnu11 -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers \
@@ -46,7 +53,6 @@ install: $(BIN)
 	for s in 64 128 256 512; do \
 	  install -Dm644 data/icons/$$s.png $(DESTDIR)$(PREFIX)/share/icons/hicolor/$${s}x$${s}/apps/$(APPID).png; \
 	done
-	install -Dm644 data/favicon.svg $(DESTDIR)$(PREFIX)/share/icons/hicolor/symbolic/apps/$(APPID)-symbolic.svg
 	@if [ -z "$(DESTDIR)" ]; then \
 	  gtk-update-icon-cache -q -t $(PREFIX)/share/icons/hicolor 2>/dev/null || true; \
 	  update-desktop-database -q $(PREFIX)/share/applications 2>/dev/null || true; \
@@ -55,7 +61,6 @@ install: $(BIN)
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/deepseek-native $(DESTDIR)$(PREFIX)/share/applications/$(APPID).desktop
 	for s in 64 128 256 512; do rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/$${s}x$${s}/apps/$(APPID).png; done
-	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/symbolic/apps/$(APPID)-symbolic.svg
 
 # Sandbox self-test: checks Landlock confinement of shell commands (no network, no API key needed).
 test: $(OBJ)

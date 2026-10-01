@@ -24,6 +24,8 @@ void ds_transcript_scroll_to_bottom(DsTranscript *t);
 void ds_transcript_scroll_to(DsTranscript *t, double y);
 double ds_transcript_content_height(DsTranscript *t);
 void ds_transcript_set_scroll_handler(DsTranscript *t, void (*fn)(gpointer), gpointer data);
+#ifdef DSN_TEST_HOOKS
 gboolean ds_transcript_find_hit(DsTranscript *t, const char *needle, double *wx, double *wy);
 gboolean ds_transcript_render_document(DsTranscript *t, const char *path);
+#endif
 GPtrArray *ds_transcript_keys(DsTranscript *t); /* borrowed key strings */

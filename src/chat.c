@@ -728,4 +728,6 @@ Chat *chat_new(ChatCallbacks cb) {
     return c;
 }
 
+#ifdef DSN_TEST_HOOKS
 void chat_debug_popovers(Chat *c, GtkWidget **out, int *n) { composer_debug_popovers(c->composer, out, n); }
+#endif

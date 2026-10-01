@@ -33,4 +33,6 @@ void chat_compose(Chat *c, const char *text);
 void chat_send_text(Chat *c, const char *text);
 void chat_copy_last(Chat *c);
 
+#ifdef DSN_TEST_HOOKS
 void chat_debug_popovers(Chat *c, GtkWidget **out, int *n);
+#endif

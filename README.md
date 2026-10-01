@@ -166,7 +166,16 @@ Headless mode runs one agent task in the terminal, with no GUI:
 ./build/deepseek-native --headless "Find the bug in calc.py and fix it" --cwd /path/to/project [--permission read-only]
 ```
 
-Environment variables used for automated GUI testing (they have no effect when unset): `DSN_DATA_DIR` (isolated data and config directory), `DSN_WORKSPACE`, `DSN_AUTOSEND`, `DSN_OPEN`, `DSN_EXPAND_ALL`, `DSN_SNAPSHOT`/`DSN_SNAPSHOT_INTERVAL`, `DSN_SCRIPT` (synthesized clicks and keys), `DSN_APPEARANCE`, `DSN_PERMISSION`, `DSN_MODEL`, `DSN_AUTOANSWER`, `DSN_QUIT_AFTER`, `DSN_NO_OPEN` (suppress launching other apps and notifications), and `DSN_DEBUG`. For example, run it under `broadwayd` with `GDK_BACKEND=broadway` so no window opens on your desktop.
+Debug builds (`make BUILD=debug`, or `make BUILD=hooks TEST_HOOKS=1` for an optimized build) include hooks for automated GUI testing. Release builds leave them out, so these variables do nothing there: `DSN_WORKSPACE`, `DSN_AUTOSEND`, `DSN_OPEN`, `DSN_EXPAND_ALL`, `DSN_SNAPSHOT`/`DSN_SNAPSHOT_INTERVAL`, `DSN_SCRIPT` (synthesized clicks and keys), `DSN_PERMISSION`, `DSN_AUTOANSWER`, `DSN_QUIT_AFTER` and `DSN_WINDOW_SIZE`. Run test builds under `broadwayd` with `GDK_BACKEND=broadway` so no window opens on your desktop.
+
+These variables work in every build:
+
+- `DSN_DATA_DIR` uses an isolated data and config directory.
+- `DSN_MODEL` overrides the model.
+- `DSN_APPEARANCE` set to `light` or `dark` forces the color scheme.
+- `DSN_NO_OPEN` stops the app from launching other apps and sending notifications.
+- `DSN_DEBUG` writes debug logs to stderr.
+- `DSN_PERF` prints per-second rebuild and draw timings to stderr.
 
 ## Not ported
 
