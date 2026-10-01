@@ -23,7 +23,7 @@ jobs:
   version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ env.TAG }}
       - name: Check version
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     container: archlinux:base-devel
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ env.TAG }}
       - name: Build package
@@ -50,7 +50,7 @@ jobs:
           chown -R builder .
           cd packaging/arch
           su builder -c "makepkg --nodeps --noconfirm"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: arch
           path: packaging/arch/*.pkg.tar.zst
@@ -59,7 +59,7 @@ jobs:
     needs: version
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ env.TAG }}
       - name: Build package
@@ -68,7 +68,7 @@ jobs:
           sudo apt-get install -y build-essential dpkg-dev libgtk-3-dev libcurl4-openssl-dev libjson-glib-dev libsecret-1-dev
           packaging/deb/build-deb.sh
           dpkg-deb --info ./*.deb
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: deb
           path: ./*.deb
@@ -81,7 +81,7 @@ jobs:
         image: ["ubuntu:22.04", "ubuntu:24.04", "debian:12"]
     container: ${{ matrix.image }}
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
         with:
           name: deb
       - name: Install and run
@@ -95,7 +95,7 @@ jobs:
     needs: [arch, test-deb]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
         with:
           path: dist
           merge-multiple: true
